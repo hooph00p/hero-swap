@@ -1,6 +1,8 @@
 Hero Swap Application
 =====================
 
+**[Template Source](http://github.com/hooph00p/red-white-blue-template)**
+
 ## Start:
 
 ```
