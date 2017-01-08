@@ -1,6 +1,6 @@
 /**
  * Webpack Configuration file
- * More Info: https://github.com/hooph00p/react-bulma-webpack-template#readme
+ * More Info: https://github.com/hooph00p/hero-swap#readme
  */
 
 var path = require('path'),

@@ -1,6 +1,6 @@
 /**
  * Node Entry
- * More Info: https://github.com/hooph00p/react-bulma-webpack-template#readme
+ * More Info: https://github.com/hooph00p/hero-swap#readme
  */
 var package = require('./package.json'),
     port = process.env.PORT || 8080,

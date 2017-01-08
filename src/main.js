@@ -1,6 +1,6 @@
 /**
  * React Entry Point
- * More Info: https://github.com/hooph00p/react-bulma-webpack-template#readme
+ * More Info: https://github.com/hooph00p/hero-swap#readme
  */
 import React from 'react';
 import ReactDOM from 'react-dom';

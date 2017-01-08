@@ -1,6 +1,6 @@
 {
-  "name": "react-bulma-webpack-template",
-  "title": "React, Bulma and Webpack Template",
+  "name": "hero-swap",
+  "title": "Hero Swap Application",
   "author": "Jared Hooper (@hooph00p)",
   "version": "0.0.1",
   "main": "index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hooph00p/react-bulma-webpack-template.git"
+    "url": "git+https://github.com/hooph00p/hero-swap.git"
   },
   "keywords": [
     "hooph00p",
@@ -26,14 +26,14 @@
     "hello world",
     "helloworld",
     "hooph00p",
-    "react-bulma-webpack-template",
-    "react-bulma-webpack-template"
+    "hero-swap",
+    "hero-swap"
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hooph00p/react-bulma-webpack-template/issues"
+    "url": "https://github.com/hooph00p/hero-swap/issues"
   },
-  "homepage": "https://github.com/hooph00p/react-bulma-webpack-template#readme",
+  "homepage": "https://github.com/hooph00p/hero-swap#readme",
   "devDependencies": {
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",
