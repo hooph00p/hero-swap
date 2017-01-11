@@ -8,12 +8,14 @@ import { createStore } from 'redux'
 import Bulma from '../node_modules/bulma/css/bulma.css'
 import Style from './style.sass'
 import 'whatwg-fetch'
+import update from 'immutability-helper';
 
 // This reducer handles all the hero store actions (adding a new hero, merging two heroes)
 const heroReducer = function(state = [], action) {
 
     // Add a hero
     if (action.type === 'ADD_HERO') {
+        console.log(state, action.hero);
         return [
             ...state,
             action.hero
@@ -52,46 +54,88 @@ const actionReducer = function(state = { action: 'NONE' }, action){
 // Hero Class has a "merging" property that toggles whether or not it's being merged with other heroes
 // TODO: Write a "select" to gather all merging heroes and consolidate attributes in merge form.
 const Hero = React.createClass({
-    getInitialState:function(){
+    getInitialState: function(){
         return {
+            hero: this.props.hero,
             merging: false
         };
     },
+
     // Changes the button and state
     toggleMerge: function(){
         this.setState({
+            hero: this.state.hero,
             merging: !this.state.merging
         });
     },
 
-
-    addHero: function(){
+    createHero: function(){
+        console.log(this.getHero());
         actionStore.dispatch({
-            type: 'ADD_HERO',
-            hero: this.props.hero
+            type: 'SUCCESS'
         }); 
+
+        heroStore.dispatch({
+            type: 'ADD_HERO',
+            hero: this.getHero()
+        });
+
+    },
+
+    getHero: function(){
+        return {
+            hero_name: this.state.hero.hero_name,
+            real_name: this.state.hero.real_name,
+            powers: [],
+            weaknesses: [],
+            gender: this.state.hero.gender
+        };
+    },
+
+    updateHeroName: function(e){
+        this.setState(update(this.state, {
+            hero: {
+                hero_name: {$set: e.target.value}
+            }
+        }));
+    },
+
+    updateRealName: function(e){
+        this.setState(update(this.state, {
+            hero: {
+                real_name :{$set: e.target.value}
+            }
+        }))
+    },
+
+    updateGender: function(e){
+        this.setState(update(this.state),{
+            hero: {
+                gender: {$set: e.target.value}
+            }
+        });
     },
 
     render: function(){
         return (
-            <div className="box">
+            <div lassName="box">
                 <div className="columns" >
                     
                     {/* HERO NAME */}
                     <div className="column">
-                        <input className="input" type="text" defaultValue={this.props.hero.hero_name}/>
+                        <input className="input" type="text" onChange={this.updateHeroName} defaultValue={this.state.hero.hero_name}/>
                     </div>
                     
                     {/* REAL NAME */}
                     <div className="column">
-                        <input className="input" type="text" defaultValue={this.props.hero.real_name} />
+                        <input className="input" type="text" onChange={this.updateRealName} defaultValue={this.state.hero.real_name}/>
                     </div>
 
                     {/* GENDER */}
                     <div className="column">
                         <p className="control">
                             <span className="select">
-                                <select defaultValue={this.props.hero.gender}>
+                                <select onChange={this.updateGender} defaultValue={this.state.hero.gender}>
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select>
@@ -106,7 +150,7 @@ const Hero = React.createClass({
                     <div className="column is-two-thirds is-offset-one-third">
                         <h1> Powers </h1><button className="button is-outlined is-small">Add Power</button>
                         <p>                             
-                            {this.props.hero.powers.map(
+                            {this.state.hero.powers.map(
                                 (power) => { return (
                                     <span key={power} className="tag is-info ">
                                         {power}
@@ -125,7 +169,7 @@ const Hero = React.createClass({
                     <div className="column is-two-thirds is-offset-one-third">
                         <h1> Weaknesses </h1> <button className="button is-outlined is-small">Add Weakness</button>
                         <p>                            
-                            {this.props.hero.weaknesses.map(
+                            {this.state.hero.weaknesses.map(
                                 (weakness)=>{ 
                                     return (
                                         <span key={weakness} className="tag is-warning">
@@ -151,7 +195,7 @@ const Hero = React.createClass({
                             Merge
                         </button>
                         {/* SUBMIT BUTTON (hidden if regular hero) */}
-                        <button className={"button is-success is-focused " + (!this.props.controlHero ? "is-hidden" : "")} onClick={this.addHero}>Submit</button>
+                        <button className={"button is-success is-focused " + (!this.props.controlHero ? "is-hidden" : "")} onClick={this.createHero}>Submit</button>
                     </div>
                 </div>
             </div>   
