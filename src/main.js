@@ -63,6 +63,15 @@ const Hero = React.createClass({
             merging: !this.state.merging
         });
     },
+
+
+    addHero: function(){
+        actionStore.dispatch({
+            type: 'ADD_HERO',
+            hero: this.props.hero
+        }); 
+    },
+
     render: function(){
         return (
             <div className="box">
@@ -70,19 +79,19 @@ const Hero = React.createClass({
                     
                     {/* HERO NAME */}
                     <div className="column">
-                        <input className="input" type="text" value={this.props.hero.hero_name}/>
+                        <input className="input" type="text" defaultValue={this.props.hero.hero_name}/>
                     </div>
                     
                     {/* REAL NAME */}
                     <div className="column">
-                        <input className="input" type="text" value={this.props.hero.real_name} />
+                        <input className="input" type="text" defaultValue={this.props.hero.real_name} />
                     </div>
 
                     {/* GENDER */}
                     <div className="column">
                         <p className="control">
                             <span className="select">
-                                <select value={this.props.hero.gender}>
+                                <select defaultValue={this.props.hero.gender}>
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select>
@@ -142,7 +151,7 @@ const Hero = React.createClass({
                             Merge
                         </button>
                         {/* SUBMIT BUTTON (hidden if regular hero) */}
-                        <button className={"button is-success is-focused " + (!this.props.controlHero ? "is-hidden" : "")}>Submit</button>
+                        <button className={"button is-success is-focused " + (!this.props.controlHero ? "is-hidden" : "")} onClick={this.addHero}>Submit</button>
                     </div>
                 </div>
             </div>   
@@ -233,11 +242,16 @@ const MergeHero = React.createClass({
 // And sets various states of the application.
 const App = React.createClass( {
     componentDidMount:function(){
-        fetch('/heroes')
-            .then((response) => { return response.json() })
-            .then((json) => {
-                heroStore.dispatch({ type: 'HERO_LIST_SUCCESS', heroes: json});
-            }); 
+        fetch('https://hero-merge.herokuapp.com/getApiKey')
+            .then((response) => {return response.json() })
+            .then((keyJSON) => { 
+                var apiKey = keyJSON.apiKey;
+                fetch('https://hero-merge.herokuapp.com/'+apiKey+'/heroes')
+                .then((response) => { return response.json() })
+                .then((json) => {
+                    heroStore.dispatch({ type: 'HERO_LIST_SUCCESS', heroes: json});
+                });     
+             })    
     },
     render:function() {
         return (
