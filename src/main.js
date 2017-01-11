@@ -118,7 +118,7 @@ const Hero = React.createClass({
 
     render: function(){
         return (
-            <div lassName="box">
+            <div className="box">
                 <div className="columns" >
                     
                     {/* HERO NAME */}
@@ -148,13 +148,13 @@ const Hero = React.createClass({
 
                     {/* POWERS */}
                     <div className="column is-two-thirds is-offset-one-third">
-                        <h1> Powers </h1><button className="button is-outlined is-small">Add Power</button>
+                        <h1> Powers </h1><button className={ (!this.props.controlHero ? "is-hidden " : "") + "button is-outlined is-small"}>Add Power</button>
                         <p>                             
                             {this.state.hero.powers.map(
                                 (power) => { return (
                                     <span key={power} className="tag is-info ">
                                         {power}
-                                        <button className="delete is-small"></button>
+                                        <button className={ (!this.props.controlHero ? "is-hidden " : "") + "delete is-small"}></button>
                                     </span>
                                         )}
                                 )
@@ -167,13 +167,14 @@ const Hero = React.createClass({
 
                     {/* WEAKNESSES */}
                     <div className="column is-two-thirds is-offset-one-third">
-                        <h1> Weaknesses </h1> <button className="button is-outlined is-small">Add Weakness</button>
+                        <h1> Weaknesses </h1> <button className={ (!this.props.controlHero ? "is-hidden " : "") + "button is-outlined is-small"}>Add Weakness</button>
                         <p>                            
                             {this.state.hero.weaknesses.map(
                                 (weakness)=>{ 
                                     return (
                                         <span key={weakness} className="tag is-warning">
-                                        {weakness}<button className="delete is-small"></button>
+                                        {weakness}
+                                        <button className={ (!this.props.controlHero ? "is-hidden " : "") + "delete is-small"}></button>
                                         </span>
                                         )}
                                 )
